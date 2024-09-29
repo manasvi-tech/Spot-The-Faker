@@ -33,7 +33,12 @@ const gameroomSchema = new mongoose.Schema({
     word_given:{
         type:String,
         req:[true, "To track the game"]
-    }
+    },
+
+    messages:[{
+        type:Schema.Types.ObjectId,
+        ref:"message"
+    }]
 },
 //createdAt, UpdatedAt => member since <createdAt>
 {timestamps:true}

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import validator from "validator";
 
 const Schema = mongoose.Schema;
 
@@ -22,6 +22,16 @@ const userSchema = new mongoose.Schema({
         minlength:6
     },
 
+    email: {
+        type: String,
+        required: [true, "Please enter your email"],
+        unique: true,
+        validate: {
+            validator: validator.isEmail,  // Use validator to check if email is valid
+            message: "Please enter a valid email address"
+        }
+    },
+
     gender:{
         type:String,
         required:true,
@@ -38,15 +48,11 @@ const userSchema = new mongoose.Schema({
         ref:"Friends"
     }],
 
-    gameRooms:[{
+    gameHistory:{
         type:Schema.Types.ObjectId,
-        ref:"Gameroom"
-    }],
-
-    messages:[{
-        type:Schema.Types.ObjectId,
-        ref:"message"
-    }]
+        ref:"GameHistory",
+        default:null
+    }
 },
 //createdAt, UpdatedAt => member since <createdAt>
 {timestamps:true}
